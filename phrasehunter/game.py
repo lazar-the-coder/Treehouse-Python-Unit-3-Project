@@ -66,7 +66,7 @@ class Game:
         if win:
             print('Congradulations, you did it! Great job!')
         else:
-            print('You\'ve failed. But don\'t give up!')
+            print('You\'ve failed, Game over. But don\'t give up!')
         while True:
             play_again = input("would you like to play again? y/n").lower()
             if play_again == "y":
