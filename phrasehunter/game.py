@@ -5,11 +5,11 @@ from phrasehunter import phrase
 
 
 phrase_list = [
-    'gad lad',
-    'cat in the hat',
-    'bobby fink',
+    'mad lad',
+    'electronic hangman',
+    'fink and his pinkertons',
     'lo and behond',
-    'John is a master'
+    'wheel of fortune'
     ]
 
 class Game:
@@ -23,6 +23,8 @@ class Game:
     def start(self):
         self.welcome()
         self.active_phrase = phrase.Phrase(self.get_random_phrase())
+        self.missed = 0
+        self.guesses = []
         playing_game = True
         while playing_game:
             self.active_phrase.display(self.guesses)
@@ -36,13 +38,15 @@ class Game:
         self.game_over(win)
 
     def welcome(self):
-        print('Welcome to the game')
+        print("----Welcome, player, to the game", 
+              "\n---You must uncover a phrase by guessing one letter at a time",
+              f"\n-You have {self.limit} tries\n\n")
 
     def get_random_phrase(self):
         return random.choice(phrase_list)
 
     def get_guess(self):
-        guess = input('make a guess' ).lower()
+        guess = input("make a guess\n  ").lower()
         if len(guess) != 1:
             print("please enter 1 letter as a guess, no more, no less.")
         elif guess.lower() in string.ascii_lowercase:
@@ -54,15 +58,15 @@ class Game:
             else:
                 print("Wrong!")
                 self.missed += 1
-                print(f"You've answered wrong {self.missed} out of {self.limit} times")
+                print(f"You've answered wrong {self.missed} times out of {self.limit},\n You have {self.limit - self.missed} guesses left.\n")
         else:
-            print('not possible')
+            print('please enter a letter')
 
     def game_over(self, win):
         if win:
-            print('Congradulations, you won!')
+            print('Congradulations, you did it! Great job!')
         else:
-            print('You have failed!')
+            print('You\'ve failed. But don\'t give up!')
         while True:
             play_again = input("would you like to play again? y/n").lower()
             if play_again == "y":
