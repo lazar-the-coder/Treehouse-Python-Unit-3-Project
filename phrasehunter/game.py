@@ -1,7 +1,7 @@
 import random
 import string
 
-from phrasehunter import phrase
+from phrasehunter.phrase import Phrase
 
 
 phrase_list = [
@@ -16,13 +16,13 @@ class Game:
     def __init__(self):
         self.missed = 0
         self.limit = 5
-        self.phrases = phrase_list
+        self.phrases = [Phrase(phrase) for phrase in phrase_list]
         self.active_phrase = None
         self.guesses = []
 
     def start(self):
         self.welcome()
-        self.active_phrase = phrase.Phrase(self.get_random_phrase())
+        self.active_phrase = self.get_random_phrase()
         self.missed = 0
         self.guesses = []
         playing_game = True
@@ -35,6 +35,7 @@ class Game:
             if self.missed == self.limit:
                 playing_game = False
                 win = False
+        self.active_phrase.display(self.guesses)
         self.game_over(win)
 
     def welcome(self):
@@ -43,7 +44,7 @@ class Game:
               f"\n-You have {self.limit} tries\n\n")
 
     def get_random_phrase(self):
-        return random.choice(phrase_list)
+        return random.choice(self.phrases)
 
     def get_guess(self):
         guess = input("make a guess\n  ").lower()
