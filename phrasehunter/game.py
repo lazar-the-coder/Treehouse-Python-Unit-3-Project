@@ -1,21 +1,13 @@
 import random
 import string
 
-from phrasehunter.phrase import Phrase
+from phrase import Phrase
 
-
-phrase_list = [
-    'mad lad',
-    'electronic hangman',
-    'fink and his pinkertons',
-    'lo and behond',
-    'wheel of fortune'
-    ]
 
 class Game:
-    def __init__(self):
+    def __init__(self, limit, phrase_list):
         self.missed = 0
-        self.limit = 5
+        self.limit = limit
         self.phrases = [Phrase(phrase) for phrase in phrase_list]
         self.active_phrase = None
         self.guesses = []
